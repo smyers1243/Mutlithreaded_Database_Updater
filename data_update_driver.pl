@@ -84,7 +84,7 @@ use Pod::Usage;
 =head1 Usage
 
 	post_update_driver.pl [--dir <directory>] [--finished-dir <dir>]
-		[--database <db_name>] [--host <host_name>] 
+		[--database <db_name>] [--host <host_name>] [--port <port>]
 		[--user <user_name>] [--password <password>] 
 		[--exit-on-error] [--max-processes <number>] 
 		[--rows <number>]
@@ -110,6 +110,12 @@ The database name.
 =item B<host>
 
 The host name or IP address for the database.
+
+The port number.
+
+=item B<port>
+
+The port number for the database.
 
 =item B<user>
 
@@ -149,6 +155,7 @@ my $dir      		= '.';
 my $finished_dir	= 'finished';
 my $database 		= '';
 my $host     		= '';
+my $port            = 5432;     # PostGres's default port
 my $user     		= '';
 my $password 		= '';
 my $max_processes 	= 6;
@@ -165,6 +172,7 @@ GetOptions(
 		'finished-dir=s'	=> \$finished_dir,
 		'database=s' 		=> \$database,
 		'host=s'     		=> \$host,
+        'port=s'            => \$port,
 		'user=s'    		=> \$user,
 		'password=s' 		=> \$password,
 		'max-processes=i'	=> \$max_processes,	# numeric
@@ -218,7 +226,7 @@ my $db_params = {
 		platform => 'Pg', 	# Always PostGreSQL
 		database => $database, 
 		host     => $host, 
-		port     => '5432',	# PostGres's default port
+		port     => $port,
 		user     => $user, 
 		pw       => $password 
 };	
